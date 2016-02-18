@@ -5,7 +5,7 @@
 #include<unistd.h>
 #include "MQTTClient.h"
 
-#define DEBUG 1
+//#define DEBUG 1
 
 #define ADDRESS     "TCP ADDR"
 #define CLIENTID    "CLIENT MQTT"
@@ -43,7 +43,7 @@ light_status light_luminary[700];
 
 void* publish_retentive(void *arg)
 {
-	 pthread_mutex_lock(&mux);
+	pthread_mutex_lock(&mux);
 
 	MQTTClient_message pubmsg = MQTTClient_message_initializer;
 	srand(time(NULL));
@@ -154,6 +154,26 @@ int main(void)
 {
 	int i = 0, ch;
     int err;
+    
+    pid_t process_id = 0;
+	pid_t sid = 0;
+
+	process_id = fork();
+
+	if (process_id < 0)
+	{
+		printf("fork failed!\n");
+		exit(1);
+	}
+
+	if (process_id > 0){
+		printf("process_id of child process %d \n", process_id);
+		exit(0);
+	}
+
+	sid = setsid();
+	if(sid < 0)
+		exit(1);
     
      MQTTClient_create(&client, ADDRESS, CLIENTID,
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
