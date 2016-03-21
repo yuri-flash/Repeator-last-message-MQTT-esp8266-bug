@@ -7,12 +7,12 @@
 
 //#define DEBUG 1
 
-#define ADDRESS     "TCP ADDR"
-#define CLIENTID    "CLIENT MQTT"
-#define TOPIC_SUB   "TOPIC"
+#define ADDRESS     	"tcp://10.10.10.1:1883"
+#define CLIENTID    	"AWGESDDD"
+#define TOPIC_SUB   	"lights/+/status"
 #define QOS         1
 #define TIMEOUT     10000L
-#define HELLO       "Last Message"
+#define HELLO       "Hello AWGES DEV:"
 
 #ifdef DEBUG
 #define DBG printf
